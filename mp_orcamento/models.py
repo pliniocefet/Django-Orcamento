@@ -15,87 +15,87 @@ class Cliente(models.Model):
 
 
 class Vendedor(models.Model):
-    nome_vendedor = models.CharField(max_length=128)  # nome vendedor
-    telefone_vendedor = models.CharField(max_length=30)  # telefone vendedor
+    nome = models.CharField(max_length=128)  # nome vendedor
+    telefone = models.CharField(max_length=30)  # telefone vendedor
 
     objects = models.Manager()
 
     def __str__(self):
-        return self.nome_vendedor
+        return self.nome
 
 
 
 # MODELS PARA LINHA DE PRODUTOS
 class Linha(models.Model):
-    codigo_linha = models.CharField(max_length=64)  # codigo
-    descricao_linha = models.CharField(max_length=256)  # descrição
+    codigo = models.CharField(max_length=64)  # codigo
+    descricao = models.CharField(max_length=256)  # descrição
 
     objects = models.Manager()
 
     def __str__(self):
-        return self.codigo_linha
+        return self.codigo
     
     def __unicode__(self):
-        return self.codigo_linha
+        return self.codigo
 
 
 class Aluminio(models.Model):
-    codigo_aluminio = models.CharField(max_length=64)  # codigo
-    descricao_aluminio = models.CharField(max_length=256)  # descricao
-    peso_aluminio = models.FloatField()  # peso
+    codigo = models.CharField(max_length=64)  # codigo
+    descricao = models.CharField(max_length=256)  # descricao
+    peso = models.FloatField()  # peso
     linha = models.ForeignKey(Linha, on_delete=models.CASCADE)  # linha
 
     objects = models.Manager()
     
     def __str__(self):
-        return self.descricao_aluminio
+        return self.descricao
     
     def __unicode__(self):
-        return self.descricao_aluminio
+        return self.descricao
 
 
 class Acessorio(models.Model):
-    codigo_acessorio = models.CharField(max_length=64)  # codigo
-    descricao_acessorio = models.CharField(max_length=256)  # descricao
+    codigo = models.CharField(max_length=64)  # codigo
+    descricao = models.CharField(max_length=256)  # descricao
     linha = models.ForeignKey(Linha, on_delete=models.CASCADE)  # linha
-    preco_acessorio = models.FloatField()  # preço
+    preco = models.FloatField()  # preço
 
     objects = models.Manager()
     
     def __str__(self):
-        return self.descricao_acessorio
+        return self.descricao
 
     def __unicode__(self):
-        return self.descricao_acessorio
+        return self.descricao
 
 
 class Vidro(models.Model):
-    codigo_vidro = models.CharField(max_length=64)  # codigo
-    descricao_vidro = models.CharField(max_length=256)  # descricao
-    preco_vidro = models.FloatField()  # preço
+    codigo = models.CharField(max_length=64)  # codigo
+    descricao = models.CharField(max_length=256)  # descricao
+    preco = models.FloatField()  # preço
 
     objects = models.Manager()
 
     def __str__(self):
-        return self.descricao_vidro
+        return self.descricao
 
     def __unicode__(self):
-        return self.descricao_vidro
+        return self.descricao
 
 
 class Produto(models.Model):
-    codigo_produto = models.CharField(max_length=64)  # codigo
-    descricao_produto = models.CharField(max_length=256)  # descrição
+    codigo = models.CharField(max_length=64)  # codigo
+    descricao = models.CharField(max_length=256)  # descrição
     linha = models.ForeignKey(Linha, on_delete=models.CASCADE)  # vincular linha
     vidro = models.ForeignKey(Vidro, on_delete=models.CASCADE)  # vincular vidro
     aluminio = models.ForeignKey(Aluminio, on_delete=models.CASCADE)  # vincular aluminio
     acessorio = models.ForeignKey(Acessorio, on_delete=models.CASCADE)  # vincular acessorio
       
     def __str__(self):
-        return self.descricao_produto
+        return self.descricao
 
     def __unicode__(self):
-        return self.descricao_produto
+        return self.descricao
 
 
 # MODELS PARA ORÇAMENTOS

@@ -45,7 +45,7 @@ def editar_cliente(request, id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_cliente')
+            return redirect('listar_cliente')
         else:
             context = {'form': form, 'lista_clientes': lista_clientes}
             form = FormCliente(request.POST or None, instance=cliente)
@@ -61,8 +61,7 @@ def excluir_cliente(request, id):
     # TODO: Acrescentar menssagem de cliente removido com sucesso ou falha
     cliente = get_object_or_404(Cliente, id=id)
     cliente.delete()
-    return redirect('cadastrar_cliente')
-
+    return redirect('listar_cliente')
 
 
 # VIEWS DE VENDEDORES
@@ -74,10 +73,11 @@ def cadastrar_vendedor(request):
         form = FormVendedor(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_vendedor')
+            return redirect('listar_vendedor')
     else:
         form = FormVendedor()
         return render(request, 'mp_orcamento/cadastrar_vendedor.html', {'form': form, 'vendedores': vendedores})
+
 
 @login_required()
 def listar_vendedor(request):
@@ -97,7 +97,7 @@ def editar_vendedor(request, id):
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_vendedor')
+            return redirect('listar_vendedor')
         else:
             context = {'form': form, 'vendedor': vendedor, 'vendedores': vendedores}
             return render(request,'mp_orcamento/cadastrar_vendedor.html', context)
@@ -111,7 +111,7 @@ def excluir_vendedor(request, id):
     # TODO: Acrescentar menssagem de vendedor removido com sucesso ou falha
     vendedor = get_object_or_404(Vendedor, pk=id)
     vendedor.delete()
-    return redirect('cadastrar_vendedor')
+    return redirect('listar_vendedor')
 
 
 # VIEWS DE ALUMINIO
@@ -125,12 +125,18 @@ def cadastrar_aluminio(request):
 
         if form.is_valid(): # se o fomulario for valido
             form.save()
-            return redirect('cadastrar_aluminio')
+            return redirect('listar_aluminio')
     else:
         form = FormAluminio() # se a requisição não for POST devolve o formulario prenchido
         context = {'lista_aluminios': lista_aluminios, 'form': form}
         return render(request, 'mp_orcamento/cadastrar_aluminio.html', context)
 
+@login_required()
+def listar_aluminio(request):
+    # TODO: IMPLEMENTAR BUSCA DE ALUMINIOS ATUALIZAR A LISTA CONFORME DIGITA O TEXTO
+    lista_aluminios = Aluminio.objects.all()
+    context = {'lista_aluminios': lista_aluminios}
+    return render(request, 'mp_orcamento/listar_aluminio.html', context)
 
 
 @login_required()
@@ -144,7 +150,7 @@ def editar_aluminio(request, id):
         form = FormAluminio(request.POST or None, instance=aluminio_id)
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_aluminio')
+            return redirect('listar_aluminio')
 
     context = {'form': form, 'lista_aluminios': lista_aluminios}
     return render(request, 'mp_orcamento/cadastrar_aluminio.html', context)
@@ -156,8 +162,7 @@ def editar_aluminio(request, id):
 def excluir_aluminio(request, id):
     aluminio = get_object_or_404(Aluminio, pk=id)
     aluminio.delete()
-    return redirect('cadastrar_aluminio')
-
+    return redirect('listar_aluminio')
 
 
 # VIEWS DE ACESSORIOS
@@ -169,11 +174,19 @@ def cadastrar_acessorio(request):
         form = FormAcessorio(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_acessorio')
+            return redirect('listar_acessorio')
     else:
         form = FormAcessorio()
         context = {'form': form, 'lista_acessorios': lista_acessorios}
         return render(request, 'mp_orcamento/cadastrar_acessorio.html', context)
+
+
+@login_required()
+def listar_acessorio(request):
+    # TODO: IMPLEMENTAR BUSCA DE ACESSORIOS ATUALIZAR A LISTA CONFORME DIGITA O TEXTO
+    lista_acessorios = Acessorio.objects.all()
+    context = {'lista_acessorios': lista_acessorios}
+    return render(request, 'mp_orcamento/listar_acessorio.html', context)
 
 
 @login_required()
@@ -186,7 +199,7 @@ def editar_acessorio(request, id):
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_acessorio')
+            return redirect('listar_acessorio')
         else:
             context = {'form': form, 'acessorio': acessorio, 'lista_acessorios': lista_acessorios}
             return render(request, 'mp_orcamento/cadastrar_acessorio.html', context)
@@ -201,7 +214,7 @@ def editar_acessorio(request, id):
 def excluir_acessorio(request, id):
     acessorio = get_object_or_404(Acessorio, pk=id)
     acessorio.delete()
-    return redirect('cadastrar_acessorio')
+    return redirect('listar_acessorio')
 
 
 # VIEWS DE LINHA DE PRODUTOS
@@ -214,11 +227,19 @@ def cadastrar_linha_produto(request):
 
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_linha_produto')
+            return redirect('listar_linha_produto')
     else:
         form = FormLinha()
 
     return render(request, 'mp_orcamento/cadastrar_linha_produto.html', {'form': form ,'linha_de_produtos': linha_de_produtos})
+
+@login_required()
+def listar_linha_produto(request):
+    # TODO: IMPLEMENTAR BUSCA DE LINHA DE PRODUTOS ATUALIZAR A LISTA CONFORME DIGITA O TEXTO
+    lista_linha_produtos = Linha.objects.all()
+    context = {'lista_linha_produtos': lista_linha_produtos}
+    return render(request, 'mp_orcamento/listar_linha_produto.html', context)
+
 
 @login_required()
 def editar_linha_produto(request, id):
@@ -230,7 +251,7 @@ def editar_linha_produto(request, id):
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_linha_produto')
+            return redirect('listar_linha_produto')
         else:
             context = {'form': form, 'linha_de_produtos': linha_de_produtos}
             return render(request, 'mp_orcamento/cadastrar_linha_produto.html', context)
@@ -244,8 +265,7 @@ def excluir_linha_produto(request, id):
     # TODO: Acrescentar menssagem de linha de produto removido com sucesso ou falha
     linha_produto = get_object_or_404(Linha, pk=id)
     linha_produto.delete()
-    return redirect('cadastrar_linha_produto')
-
+    return redirect('listar_linha_produto')
 
 
 # VIEWS DE VIDROS
@@ -258,11 +278,20 @@ def cadastrar_vidro(request):
 
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_vidro')
+            return redirect('listar_vidro')
     else:
         form = FormVidro()
 
     return render(request, 'mp_orcamento/cadastrar_vidro.html', {'form': form ,'lista_vidros': lista_vidros})
+
+@login_required()
+def listar_vidro(request):
+    # TODO: IMPLEMENTAR BUSCA DE VIDROS ATUALIZAR A LISTA CONFORME DIGITA O TEXTO
+    lista_vidros = Vidro.objects.all()
+    context = {'lista_vidros': lista_vidros}
+    return render(request, 'mp_orcamento/listar_vidro.html', context)
+
+
 
 @login_required()
 def editar_vidro(request, id):
@@ -274,7 +303,7 @@ def editar_vidro(request, id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('cadastrar_vidro')
+            return redirect('listar_vidro')
         else:
             context = {'lista_vidros': lista_vidros, 'vidro': vidro, 'form': form}
             return render(request,'mp_orcamento/cadastrar_vidro.html', context)
@@ -288,7 +317,7 @@ def excluir_vidro(request, id):
     # TODO: Acrescentar menssagem de vidro removido com sucesso ou falha
     vidro = get_object_or_404(Vidro, pk=id)
     vidro.delete()
-    return redirect('cadastrar_vidro')
+    return redirect('listar_vidro')
 
 
 # VIEWS DE PRODUTOS

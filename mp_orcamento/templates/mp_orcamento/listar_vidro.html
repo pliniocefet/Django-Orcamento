@@ -8,31 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    {% block title %}Lista de Clientes{% endblock title %}
+    {% block title %}Lista de Vidros{% endblock title %}
 </head>
 
 <body>
-{% block subtitle %}Clientes{% endblock subtitle %}
+{% block subtitle %}Vidros{% endblock subtitle %}
 {% block content %}
-    <!-- CARD DE LISTA DE CLIENTES -->
+    <!-- CARD DE LISTA DE ALUMÍNIOS -->
     <div class="row">
         <div class="col-sm-12">
            	<div class="card">
            		<div class="card-body">
                     <div class="col-sm-3">
-                        <a class="btn btn-primary" id="novo_cliente" href="/cadastrar_cliente">
-                            <i class="fas fa-plus"></i> Novo Cliente
+                        <a class="btn btn-primary" id="novo_vidro" href="/cadastrar_vidro">
+                            <i class="fas fa-plus"></i> Novo Vidro
                         </a>
                     </div>
                     <div class="col-sm-3">
-                        <input type="search" class="form-control mt-2" id="floatingInput" placeholder="Buscar Cliente">
+                        <input type="search" class="form-control mt-2" id="floatingInput" placeholder="Buscar Vidro">
                     </div>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Endereço</th>
-                                <th scope="col">Telefone</th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Preço</th>
                                 <th scope="col">Opções</th>
                             </tr>
                         </thead>
@@ -46,14 +46,14 @@
                                 </ul>
                             {% endif %}
                         </center>
-                            {% for cliente in lista_clientes %}
+                            {% for vidro in lista_vidros %}
                             <tr>
-                                <td>{{ cliente.nome }}</td>
-                                <td>{{ cliente.endereco }}</td>
-                                <td>{{ cliente.telefone }}</td>
+                                <td>{{ vidro.codigo }}</td>
+                                <td>{{ vidro.descricao }}</td>
+                                <td>{{ vidro.preco }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="/editar_cliente/{{ cliente.id }}">Editar</a>
-                                    <a class="btn btn-danger btn-sm" href="/excluir_cliente/{{ cliente.id }}">Excluir</a>
+                                    <a class="btn btn-primary btn-sm" href="/editar_vidro/{{ vidro.id }}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="/excluir_vidro/{{ vidro.id }}">Excluir</a>
                                 </td>
                             </tr>
                             {% endfor %}

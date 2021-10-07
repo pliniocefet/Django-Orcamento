@@ -29,21 +29,25 @@ urlpatterns = [
 
     # ROTAS DE ALUMINIOS
     path('cadastrar_aluminio/', cadastrar_aluminio, name='cadastrar_aluminio'),
+    path('listar_aluminio/', listar_aluminio, name='listar_aluminio'),
     path('editar_aluminio/<int:id>', editar_aluminio, name='editar_aluminio'),
     path('excluir_aluminio/<int:id>', excluir_aluminio, name='excluir_aluminio'),
 
     # ROTAS DE ACESSORIOS
     path('cadastrar_acessorio/', cadastrar_acessorio, name='cadastrar_acessorio'),
+    path('listar_acessorio/', listar_acessorio, name='listar_acessorio'),
     path('editar_acessorio/<int:id>', editar_acessorio, name='editar_acessorio'),
     path('excluir_acessorio/<int:id>', excluir_acessorio, name='excluir_acessorio'),
 
     # ROTAS DE LINHA DE PRODUTOS
     path('cadastrar_linha_produto/', cadastrar_linha_produto, name='cadastrar_linha_produto'),
+    path('listar_linha_produto/', listar_linha_produto, name='listar_linha_produto'),
     path('editar_linha_produto/<int:id>', editar_linha_produto, name='editar_linha_produto'),
     path('excluir_linha_produto/<int:id>', excluir_linha_produto, name='excluir_linha_produto'),
 
     # ROTAS DE VIDROS
     path('cadastrar_vidro/', cadastrar_vidro, name='cadastrar_vidro'),
+    path('listar_vidro/', listar_vidro, name='listar_vidro'),
     path('editar_vidro/<int:id>', editar_vidro, name='editar_vidro'),
     path('excluir_vidro/<int:id>', excluir_vidro, name='excluir_vidro'),
 

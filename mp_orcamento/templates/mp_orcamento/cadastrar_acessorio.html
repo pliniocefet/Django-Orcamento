@@ -32,36 +32,6 @@
 					</form>
            		</div>
            	</div>
-            <!-- CARD DE LISTA DE ACESSÓRIOS -->
-            <div class="card mt-4">
-           		<div class="card-body">
-                   <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Código</th>
-                                <th scope="col">Descrição </th>
-                                <th scope="col">Linha </th>
-                                <th scope="col">Preço </th>
-                                <th scope="col">Opções</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for acessorio in lista_acessorios %}
-                            <tr>
-                                <td>{{ acessorio.codigo_acessorio }}</td>
-                                <td>{{ acessorio.descricao_acessorio }}</td>
-                                <td>{{ acessorio.linha }}</td>
-                                <td>{{ acessorio.preco_acessorio }}</td>
-                                <td>
-                                    <a class="btn btn-primary btn-sm" href="/editar_acessorio/{{acessorio.id}}">Editar</a>
-                                    <a class="btn btn-danger btn-sm" href="/excluir_acessorio/{{acessorio.id}}">Excluir</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-           	</div>
         </div>
     </div>
 {% endblock content %}

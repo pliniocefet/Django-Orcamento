@@ -30,34 +30,6 @@
 					</form>
            		</div>
            	</div>
-            <!-- CARD DE LISTA DE VIDROS -->
-            <div class="card mt-4">
-           		<div class="card-body">
-                   <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Código</th>
-                                <th scope="col">Descrição</th>
-                                <th scope="col">Preço</th>
-                                <th scope="col">Opções</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for vidro in lista_vidros %}
-                            <tr>
-                                <td>{{ vidro.codigo_vidro }}</td>
-                                <td>{{ vidro.descricao_vidro }}</td>
-                                <td>{{ vidro.preco_vidro }}</td>
-                                <td>
-                                    <a class="btn btn-primary btn-sm" href="/editar_vidro/{{vidro.id}}">Editar</a>
-                                    <a class="btn btn-danger btn-sm" href="/excluir_vidro/{{vidro.id}}">Excluir</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-           	</div>
         </div>
     </div>
 {% endblock content %}
