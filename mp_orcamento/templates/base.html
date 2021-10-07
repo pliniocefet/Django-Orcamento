@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+	<title>EsquadriGlass Calc - {% block title %}{% endblock title %}</title>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">EsquadriGlass Calc</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
+                    <!-- ***************** MENU ORÇAMENTOS *************** -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Orçamentos</a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navBarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'novo_orcamento' %}">Novo Orçamento</a></li>
+                                <li><a class="dropdown-item" href="{% url 'pesquisar_orcamento' %}">Pesquisar Orçamento</a></li>
+                                <li><a class="dropdown-item" href="/">Relatório de Orçamentos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <!-- ***************** MENU CADASTROS *************** -->
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navBarDarkDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'listar_cliente' %}">Clientes</a></li>
+                                <li><a class="dropdown-item" href="/">Fornecedores</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar_linha_produto' %}">Linha de Produtos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'listar_produto' %}">Produtos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar_aluminio' %}">Alumínios</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar_acessorio' %}">Acessórios</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar_vidro' %}">Vidros</a></li>
+                                <li><hr></li>
+                                <li><a class="dropdown-item" href="{% url 'listar_vendedor' %}">Vendedores</a></li>
+                                <li><a class="dropdown-item" href="{% url 'index' %}">Usuarios</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                        <!-- ***************** MENU AJUSTES *************** -->
+                            <a class="nav-link" href="#">Ajustes</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                        <!-- ***************** LOGIN *************** -->
+                            <a class="nav-link" href="/accounts/login">Entrar</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                    <!-- ***************** SOBRE O SITE *************** -->
+                        <a class="nav-link" href="#">Sobre</a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                        <!-- ***************** BOTÃO SAIR *************** -->
+                            <a class="nav-link" href="/accounts/logout">Sair</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <label class="nav-link">Usuario Logado: {{ request.user }}</label>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron text-center">
+        <h1 class="display-4 mb-3">{% block subtitle %}{% endblock subtitle %}</h1>
+	</div>
+    <div class="container mt-3">
+        <div class="row">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+
+</body>
+
+</html>
+    

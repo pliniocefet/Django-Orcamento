@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block title %}Lista de Produtos{% endblock title %}
+</head>
+
+<body>
+{% block subtitle %}Produtos{% endblock subtitle %}
+{% block content %}
+    <!-- CARD DE LISTA DE PRODUTOS -->
+    <div class="row">
+        <div class="col-sm-12">
+           	<div class="card">
+           		<div class="card-body">
+                    <div class="col-sm-3">
+                        <a class="btn btn-primary" id="novo_produto" href="/cadastrar_produto">
+                            <i class="fas fa-plus"></i> Novo Produto
+                        </a>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="search" class="form-control mt-2" id="floatingInput" placeholder="Buscar Produto">
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Descrição </th>
+                                <th scope="col">Linha </th>
+                                <th scope="col">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <center>
+                            {% if messages %}
+                                <ul class="alert alert-success">
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </center>
+                            {% for produto in lista_produtos %}
+                            <tr>
+                                <td>{{ produto.codigo_produto }}</td>
+                                <td>{{ produto.linha.codigo_linha }}</td>
+                                <td>{{ produto.descricao_produto }}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="/editar_produto/{{ produto.id }}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="/excluir_produto/{{ produto.id }}">Excluir</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+           		</div>
+           	</div>
+        </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

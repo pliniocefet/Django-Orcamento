@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% block title %}Cadastro de Clientes{% endblock title %}
+</head>
+
+<body>
+{% block subtitle %}Cadastro de Clientes{% endblock subtitle %}
+{% block content %}
+	<!-- CARD DE CADASTRO DE CLIENTES -->
+    <div class="row mb-5">
+        <div class="col-sm-12">
+           	<div class="card">
+           		<div class="card-body">
+                    <form method="POST">
+                       {% csrf_token %}
+           				{{ form|crispy }}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block mb-2 mt-4">Cadastrar</button>
+                        </div>
+					</form>
+           		</div>
+           	</div>
+        </div>
+    </div>
+{% endblock content %}
+</body>
+
+</html>

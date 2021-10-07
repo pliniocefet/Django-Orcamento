@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% block title %}Cadastro de Vendedores{% endblock title %}
+</head>
+
+<body>
+{% block subtitle %}Cadastro de Vendedores{% endblock subtitle %}
+{% block content %}
+	<!-- CARD DE CADASTRO DE VENDEDORES -->
+    <div class="row mb-5">
+        <div class="col-sm-12">
+           	<div class="card">
+           		<div class="card-body">
+                    <form method="POST">
+                       {% csrf_token %}
+           				{{ form|crispy }}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block mb-2 mt-4">Cadastrar</button>
+                        </div>
+					</form>
+           		</div>
+           	</div>
+            <!-- CARD DE LISTA DE VENDEDORES -->
+            <div class="card mt-4">
+           		<div class="card-body">
+                   <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome Vendedor</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vendedor in vendedores %}
+                            <tr>
+                                <td>{{ vendedor.nome_vendedor }}</td>
+                                <td>{{ vendedor.telefone_vendedor }}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="/editar_vendedor/{{vendedor.id}}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="/excluir_vendedor/{{vendedor.id}}">Excluir</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+           	</div>
+        </div>
+    </div>
+{% endblock content %}
+</body>
+
+</html>

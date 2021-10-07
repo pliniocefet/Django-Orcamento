@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {% block title %}Lista de Clientes{% endblock title %}
+</head>
+
+<body>
+{% block subtitle %}Clientes{% endblock subtitle %}
+{% block content %}
+    <!-- CARD DE LISTA DE CLIENTES -->
+    <div class="row">
+        <div class="col-sm-12">
+           	<div class="card">
+           		<div class="card-body">
+                    <div class="col-sm-3">
+                        <a class="btn btn-primary" id="novo_cliente" href="/cadastrar_cliente">
+                            <i class="fas fa-plus"></i> Novo Cliente
+                        </a>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="search" class="form-control mt-2" id="floatingInput" placeholder="Buscar Cliente">
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Endereço</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <center>
+                            {% if messages %}
+                                <ul class="alert alert-success">
+                                    {% for message in messages %}
+                                        {{ message }}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </center>
+                            {% for cliente in lista_clientes %}
+                            <tr>
+                                <td>{{ cliente.nome }}</td>
+                                <td>{{ cliente.endereco }}</td>
+                                <td>{{ cliente.telefone }}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="/editar_produto/{{ produto.id }}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="/excluir_produto/{{ produto.id }}">Excluir</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+           		</div>
+           	</div>
+        </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

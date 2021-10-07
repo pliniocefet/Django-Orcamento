@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% block title %}Lista de Orçamentos{% endblock title %}
+</head>
+
+<body>
+{% block content %}
+    <h1>Lista de orçamentos</h1>
+
+    <div class="row mb-2">
+        <div class="col-sm-3">
+            <a class="btn btn-primary" id="novo_orcamento" href="/novo_orcamento">
+                <i class="fas fa-plus"></i> Novo Orçamento
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <input type="search" class="form-control" id="floatingInput" placeholder="Buscar Orçamento">
+        </div>
+    </div>
+    
+    <!-- TABELA DE CADASTRO DE ORÇAMENTOS -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Cod.</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Usuário</th>
+                <th scope="col">Vendedor</th>
+                <th scope="col">Abertura</th>
+                <th scope="col">Última Rev.</th>
+                <th scope="col">Valores</th>
+                <th scope="col">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for orcamento in orcamentos %}
+            <tr>
+                <td>{{ orcamento.id }}</td>
+                <td>{{ orcamento.cliente.nome }}</td>
+                <td>{{ request.user }}</td>
+                <td>{{ orcamento.vendedor.nome_vendedor }}</td>
+                <td>{{ orcamento.created_at }}</td>
+                <td>{{ orcamento.update_at }}</td>
+                <td>R$ recuperar valor</td>
+                <td>
+                    <a href="/editar_orcamento/{{ orcamento.id }}"><i class="fas fa-pen"></i></a>
+                    <a href="/visualizar_orcamento/{{ orcamento.id  }}"><i class="fas fa-eye"></i></a>
+                    <a href="/excluir_orcamento/{{ orcamento.id  }}"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
+</body>
+
+</html>
+
