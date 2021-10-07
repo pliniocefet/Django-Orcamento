@@ -1,17 +1,68 @@
-{% extends 'base.html%}
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     {% block title %}Cadastro de Alumínios{% endblock title %}
 </head>
+
 <body>
-    <div class="jumbotron">
-        <h1 class="display-4 mb-3">Cadastro de Alumínios <i class="fas fa-id-card-alt"></i></h1>
-	</div>
+{% block subtitle %}Cadastro de Alumínios{% endblock subtitle %}
 {% block content %}
+    <!-- CARD DE CADASTRO DE ALUMÍNIOS -->
+    <div class="row">
+        <div class="col-sm-12">
+           	<div class="card">
+           		<div class="card-body">
+           			<form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
 
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block mb-2 mt-4">Cadastrar</button>
+                        </div>
+					</form>
+           		</div>
+           	</div>
+            <!-- CARD DE LISTA DE ALUMINIOS -->
+            <div class="card mt-4">
+           		<div class="card-body">
+                   <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Descrição </th>
+                                <th scope="col">Peso </th>
+                                <th scope="col">Linha </th>
+                                <th scope="col">Opções</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for aluminio in lista_aluminios %}
+                            <tr>
+                                <td>{{ aluminio.codigo_aluminio }}</td>
+                                <td>{{ aluminio.descricao_aluminio }}</td>
+                                <td>{{ aluminio.peso_aluminio }}</td>
+                                <td>{{ aluminio.linha }}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="/editar_aluminio/{{aluminio.id}}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="/excluir_aluminio/{{aluminio.id}}">Excluir</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+           	</div>
+        </div>
+    </div>
 {% endblock content %}
-
 </body>
 </html>

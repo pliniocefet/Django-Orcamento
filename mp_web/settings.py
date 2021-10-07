@@ -31,14 +31,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Apps do sistema
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # meus apps
     'mp_orcamento',
+    'accounts',
+    # apps de terceiros
+    'crispy_forms', # app responsável por estilizar os formulários mais facilmente
 ]
+
+# SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +62,7 @@ ROOT_URLCONF = 'mp_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join((BASE_DIR), 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,6 +74,12 @@ TEMPLATES = [
         },
     },
 ]
+
+# # usado para a autenticação de usuarios
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# ]
 
 WSGI_APPLICATION = 'mp_web.wsgi.application'
 
@@ -118,4 +131,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Caminho para os arquivos estáticos (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+
+# Para Criar primary key automatico
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Regireciona o usuario logado para a pagina principal
+LOGIN_REDIRECT_URL = '/'
+
+# Redireciona o usuario para a pagina de login
+LOGOUT_REDIRECT_URL = '/accounts/login'
+
+# Pacote de templates de formularios prontos do Crispy
+# uni_form - pacote altamente customizavel e bem estruturado
+# bootstrap4 - Suporta versão 4 do bootstrap Tweeter
+CRISPY_TEMPLATE_PACK = 'bootstrap4' 

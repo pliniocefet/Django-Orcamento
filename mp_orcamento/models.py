@@ -1,66 +1,144 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
 
 # Create your models here.
 class Cliente(models.Model):
     nome = models.CharField(max_length=128)
-    email = models.EmailField(max_length=128)
+    endereco = models.CharField(max_length=128)
+    telefone = models.CharField(max_length=30)
+
+    objects = models.Manager()
 
     def __str__(self):
         return self.nome
 
 
+class Vendedor(models.Model):
+    nome_vendedor = models.CharField(max_length=128)  # nome vendedor
+    telefone_vendedor = models.CharField(max_length=30)  # telefone vendedor
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.nome_vendedor
+
+
+
+# MODELS PARA LINHA DE PRODUTOS
+class Linha(models.Model):
+    codigo_linha = models.CharField(max_length=64)  # codigo
+    descricao_linha = models.CharField(max_length=256)  # descrição
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.codigo_linha
+    
+    def __unicode__(self):
+        return self.codigo_linha
+
+
+class Aluminio(models.Model):
+    codigo_aluminio = models.CharField(max_length=64)  # codigo
+    descricao_aluminio = models.CharField(max_length=256)  # descricao
+    peso_aluminio = models.FloatField()  # peso
+    linha = models.ForeignKey(Linha, on_delete=models.CASCADE)  # linha
+
+    objects = models.Manager()
+    
+    def __str__(self):
+        return self.descricao_aluminio
+    
+    def __unicode__(self):
+        return self.descricao_aluminio
+
+
+class Acessorio(models.Model):
+    codigo_acessorio = models.CharField(max_length=64)  # codigo
+    descricao_acessorio = models.CharField(max_length=256)  # descricao
+    linha = models.ForeignKey(Linha, on_delete=models.CASCADE)  # linha
+    preco_acessorio = models.FloatField()  # preço
+
+    objects = models.Manager()
+    
+    def __str__(self):
+        return self.descricao_acessorio
+
+    def __unicode__(self):
+        return self.descricao_acessorio
+
+
+class Vidro(models.Model):
+    codigo_vidro = models.CharField(max_length=64)  # codigo
+    descricao_vidro = models.CharField(max_length=256)  # descricao
+    preco_vidro = models.FloatField()  # preço
+
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.descricao_vidro
+
+    def __unicode__(self):
+        return self.descricao_vidro
+
+
+class Produto(models.Model):
+    codigo_produto = models.CharField(max_length=64)  # codigo
+    descricao_produto = models.CharField(max_length=256)  # descrição
+    linha = models.ForeignKey(Linha, on_delete=models.CASCADE)  # vincular linha
+    vidro = models.ForeignKey(Vidro, on_delete=models.CASCADE)  # vincular vidro
+    aluminio = models.ForeignKey(Aluminio, on_delete=models.CASCADE)  # vincular aluminio
+    acessorio = models.ForeignKey(Acessorio, on_delete=models.CASCADE)  # vincular acessorio
+      
+    def __str__(self):
+        return self.descricao_produto
+
+    def __unicode__(self):
+        return self.descricao_produto
+
+
+# MODELS PARA ORÇAMENTOS
 class Orcamento(models.Model):
-    data_hora = models.DateTimeField()
+    """
+    ITENS DO MODEL ORÇAMENTO
+    * Nome do Cliente (ForeignKey Cliente)
+    * Telefone do Cliente (ForeignKey Cliente)
+    * Endereço do Cliente (ForeignKey Cliente)
+    * Vendedor responsável (ForeignKey Vendedor)
+    * Tipo de Materia prima
+        -> Esquadria de aluminio
+        -> Vidro temperado
+    * Cor do Alumínio
+        -> Branco
+        -> Preto
+        -> ...
+    * Produto
+    """
+
+    MATERIA_PRIMA = (
+        ('esquadria', 'Esquadria de Alumínio'),
+        ('temperado', 'Vidro Temperado'),
+                    )
+
+    COR_DO_ALUMINIO = (
+        ('BR', 'Pintura Branco'),
+        ('PT', 'Pintura Preto'),
+        ('BZ', 'Anodizado Bronze'),
+        ('FC', 'Anodizado Fosco'),
+        ('AM', 'Pintura Amadeirado'),
+                    )
+
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
+    materia_prima = models.CharField(max_length=10, choices=MATERIA_PRIMA,)
+    linha = models.ForeignKey(Linha, on_delete=models.CASCADE)
+    pintura = models.CharField(max_length=50, choices=COR_DO_ALUMINIO)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.data_hora, self.cliente.nome)
+        return self.cliente.nome
 
-    def custo_total(self):
-        somatorio = 0
-        for peca in Peca.objects.filter(orcamento=self):
-            somatorio += peca.custo_de_producao_ajustado()
-        return somatorio * 1.25
-
-
-class Peca(models.Model):
-    tipo_da_mobilia = models.CharField(max_length=64)
-    largura = models.FloatField()
-    altura = models.FloatField()
-    profundidade = models.FloatField()
-    tipo_do_puxador = models.CharField(max_length=64)
-    pintura = models.CharField(max_length=64)
-    orcamento = models.ForeignKey(Orcamento, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.tipo_da_mobilia
-
-    def area_total(self):
-        area_frente = self.largura * self.altura
-        area_lado = self.altura * self.profundidade
-        area_total = area_frente + area_frente + area_lado + area_lado
-        # converte de cm para m
-        area_total = area_total / 100        
-        return area_total
-
-    def custo_de_producao(self):
-        area_total = self.area_total()
-        custo_de_producao = 0
-        if self.tipo_da_mobilia == 'compartimento de armário':
-            custo_de_producao += 50 * area_total
-        else:
-            custo_de_producao += 75 * area_total
-        if self.tipo_do_puxador == 'plástico':
-            custo_de_producao += 5
-        else:
-            custo_de_producao += 8.5
-        if self.pintura == 'acabamento PU':
-            custo_de_producao += 15 * area_total
-        elif self.pintura == 'acabamento PU texturizado':
-            custo_de_producao += 20 * area_total
-        else:
-            custo_de_producao += 35 * area_total
-        return custo_de_producao
-
-    def custo_de_producao_ajustado(self):
-        return self.custo_de_producao() * 1.75 

@@ -10,6 +10,26 @@ class ClienteAdmin(admin.ModelAdmin):
 class OrcamentoAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Peca)
-class PecaAdmin(admin.ModelAdmin):
+@admin.register(Aluminio)
+class AluminioAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Acessorio)
+class AcessorioAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Vidro)
+class VidroAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Vendedor)
+class VendedorAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Produto)
+class ProdutoAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Linha)
+class LinhaAdmin(admin.ModelAdmin):
     pass
