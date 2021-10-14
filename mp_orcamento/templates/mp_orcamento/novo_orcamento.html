@@ -18,127 +18,102 @@
 {% block content %}
 	<!-- CARD DE CADASTRO DE CLIENTE -->
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
            	<div class="card">
            		<div class="card-body">
-           			<form>
+           			<form method="post">
            				{% csrf_token %}
 						{{ form_cliente|crispy }}
 							<div class="mt-2">
+
 								<label for="floatingInput">
 									Vendedor:
 									<select class="form-select" aria-label="Vendedor">
 										<option selected>Selecione...</option>
 										{% for vendedor in vendedores %}
-											<option>{{vendedor.nome_vendedor}}</option>
+											<option value="{ vendedor.id }">{{vendedor.nome}}</option>
 										{% endfor %}
 									</select>
 								</label>
            					</div>
+							
   						<div>
-							<a class="btn btn-primary btn-sm mt-3" href="#" role="button">Salvar</a>
+							<button type="submit" class="btn btn-primary btn-sm mt-3">Salvar</button>
 						</div>
 					</form>
            		</div>
            	</div>
         </div>
-
-        <!-- CARD DE OPÇÕES DE ORÇAMENTO -->
-        <div class="col-sm-6">
-           	<div class="card">
-           		<div class="card-body">
-           			<form>
-           				<div class="mt-2">
-           					<label for="floatingInput">
-           						Materia Prima:
-	           					<select class="form-select" aria-label="Materia Prima">
-									<option selected>Selecione...</option>
-									<option value="1">Esquadria de Alumínio</option>
-									<option value="2">Vidro Temperado</option>
-								</select>
-							</label>
-           				</div>
-
-           				<div class="mt-3">
-           					<label for="floatingInput">
-           						Linha de Produtos:
-	           					<select class="form-select" aria-label="Linha de Produtos">
-									<option selected>Selecione...</option>
-									<option value="1">Suprema</option>
-									<option value="2">Gold</option>
-									<option value="3">Temperado</option>
-									<option value="4">Linha 25</option>
-									<option value="5">Linha 30</option>
-									<option value="6">Portões</option>
-									<option value="7">Portas Ômega</option>
-								</select>
-							</label>
-           				</div>
-
-           				<div class="mt-3">
-           					<label for="floatingInput">
-           						Cor do Alumínio:
-	           					<select class="form-select" aria-label="Cor do Aluminio">
-									<option selected>Selecione...</option>
-									<option value="1">Pintado Branco</option>
-									<option value="2">Pintado Preto</option>
-									<option value="3">Anodizado Bronze 1002</option>
-									<option value="4">Anodizado Fosco</option>
-								</select>
-							</label>
-           				</div>
-           			</form>
-			    </div>
-           	</div>
-        </div> 
+	</div>
 
     <!-- CARD DE BUSCA -->
-	    <div class="col-sm-12 mt-2">
-	        <div class="card">
-	           	<div class="card-body">
-	           		<div class="form-floating mt-2 mb-2">
-						<input type="buscar" class="form-control" id="floatingInput" placeholder="Buscar">
-	  					<label for="floatingInput">
-	  						Buscar
-	  						<i class="fas fa-search"></i>
-	  					</label>
-	  				</div>
+	<div class="card mt-3">
+	    <div class="card-body">
+			<form method="post">
+	       	<div class="row"> 
+				<div class="col">	
+					<label>
+						<select class="form-select" aria-label="Materia Prima">
+							<option selected>Tipo de Produto...</option>
+							<option value="1">Esquadria de Alumínio</option>
+							<option value="2">Vidro Temperado</option>
+						</select>
+					</label>
+				</div>
 
-	  				<table class="table">
-					  <thead>
-					    <tr>
-					      <th scope="col">Id</th>
-					      <th scope="col">Nome do Cliente</th>
-					      <th scope="col">Last</th>
-					      <th scope="col">Handle</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr>
-					      <th scope="row">1</th>
-					      <td>Mark</td>
-					      <td>Otto</td>
-					      <td>@mdo</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">2</th>
-					      <td>Jacob</td>
-					      <td>Thornton</td>
-					      <td>@fat</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">3</th>
-					      <td colspan="2">Larry the Bird</td>
-					      <td>@twitter</td>
-					    </tr>
-					  </tbody>
-					</table>
+				<div class="col">
+					<label>
+						<select class="form-select" aria-label="Cor do Aluminio">
+							<option selected>Cor do Aluminio...</option>
+							<option value="1">Pintado Branco</option>
+							<option value="2">Pintado Preto</option>
+							<option value="3">Anodizado Bronze 1002</option>
+							<option value="4">Anodizado Fosco</option>
+						</select>
+					</label>
+				</div>
 
-	  				
-	           	</div>
-	        </div>
-	    </div>
-    </div>
+				<div class="col">
+					{% csrf_token %}
+					<input type="buscar" name="search" class="form-control" id="floatingInput" placeholder="Buscar">
+				</div>
+
+				<div class="col">
+					<button type="submit" class="btn btn-primary">Buscar</button>
+				</div>
+
+			</div>
+			</form>	
+
+			<div class="card-body">	
+				<table class="table mt-3">
+					<thead>
+						<tr>
+							<th scope="col">Código</th>
+							<th scope="col">Descrição</th>
+							<th scope="col">Linha</th>
+							<th scope="col">Cor</th>
+							<th scope="col">Opções</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for produto in lista_produtos %}
+							<tr>
+								<td><a href="{% url 'editar_produto' produto.id %}">{{ produto.codigo }}</a></td>
+								<td>{{ produto.descricao }}</td>
+								<td>{{ produto.linha.codigo }}</td>
+								<td>definir cor</td>
+								<td>
+									<a class="btn btn-primary btn-sm" href="{% url 'incluir_item_orcamento' produto.id %}">Incluir</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
 
 {% endblock content %}
 </body>

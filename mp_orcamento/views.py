@@ -1,6 +1,8 @@
+from django.forms.models import inlineformset_factory
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 
 from .models import *
 from .forms import *
@@ -356,6 +358,12 @@ def editar_produto(request, id):
         context = {'lista_produtos': lista_produtos, 'produto': produto, 'form': form}
         return render(request, 'mp_orcamento/cadastrar_produto.html', context)
 
+@login_required()
+def buscar_produto(request, id):
+    # TODO: IMPLEMENTAR METODO DE BUSCAR PRODUTO
+    pass
+
+
 
 @login_required()
 def listar_produto(request):
@@ -383,13 +391,28 @@ def novo_orcamento(request):
     vendedores = Vendedor.objects.all()
     clientes = Cliente.objects.all()
     form_cliente = FormCliente()
+    lista_produtos = Produto.objects.all()
+
+
     if request.method == 'POST':
         form_cliente = FormCliente(request.POST)
+
+        print(form_cliente['nome'].value())
+        print(form_cliente['endereco'].value())
+        print(form_cliente['telefone'].value())
+        
         if form_cliente.is_valid():
             form_cliente.save()
             return redirect('novo_orcamento')
+    else:
+        form_cliente = FormCliente()
 
-    context = {'clientes': clientes, 'vendedores': vendedores, 'form_cliente': form_cliente}
+    context = {
+        'clientes': clientes, 
+        'vendedores': vendedores, 
+        'form_cliente': form_cliente,
+        'lista_produtos': lista_produtos,
+        }
     return render (request, 'mp_orcamento/novo_orcamento.html', context)
 
 @login_required()
@@ -408,6 +431,13 @@ def editar_orcamento(request, id):
     os dados do orçamento
     """
     pass
+
+@login_required()
+def incluir_item_orcamento(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    print(produto)
+    
+    return render(request, 'mp_orcamento/incluir_item_orcamento.html', {'produto': produto})
 
 @login_required()
 def excluir_orcamento(request, id):

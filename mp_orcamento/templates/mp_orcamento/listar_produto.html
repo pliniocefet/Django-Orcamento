@@ -14,13 +14,13 @@
 <body>
 {% block subtitle %}Produtos{% endblock subtitle %}
 {% block content %}
+
     <!-- CARD DE LISTA DE PRODUTOS -->
-    <div class="row">
-        <div class="col-sm-12">
-           	<div class="card">
-           		<div class="card-body">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
                     <div class="col-sm-3">
-                        <a class="btn btn-primary" id="novo_produto" href="/cadastrar_produto">
+                        <a class="btn btn-primary" id="novo_produto" href="{% url 'cadastrar_produto' %}">
                             <i class="fas fa-plus"></i> Novo Produto
                         </a>
                     </div>
@@ -48,9 +48,9 @@
                         </center>
                             {% for produto in lista_produtos %}
                             <tr>
-                                <td>{{ produto.codigo_produto }}</td>
-                                <td>{{ produto.linha.codigo_linha }}</td>
-                                <td>{{ produto.descricao_produto }}</td>
+                                <td>{{ produto.codigo }}</td>
+                                <td>{{ produto.descricao }}</td>
+                                <td>{{ produto.linha }}</td>
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="/editar_produto/{{ produto.id }}">Editar</a>
                                     <a class="btn btn-danger btn-sm" href="/excluir_produto/{{ produto.id }}">Excluir</a>
@@ -59,7 +59,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-           		</div>
            	</div>
         </div>
     </div>

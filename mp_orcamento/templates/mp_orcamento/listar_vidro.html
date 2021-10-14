@@ -15,12 +15,11 @@
 {% block subtitle %}Vidros{% endblock subtitle %}
 {% block content %}
     <!-- CARD DE LISTA DE ALUMÍNIOS -->
-    <div class="row">
-        <div class="col-sm-12">
-           	<div class="card">
-           		<div class="card-body">
+   	<div class="card">
+        <div class="card-body">
+            <div class="row">
                     <div class="col-sm-3">
-                        <a class="btn btn-primary" id="novo_vidro" href="/cadastrar_vidro">
+                        <a class="btn btn-primary" id="novo_vidro" href="{% url 'cadastrar_vidro' %}">
                             <i class="fas fa-plus"></i> Novo Vidro
                         </a>
                     </div>
@@ -59,7 +58,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-           		</div>
            	</div>
         </div>
     </div>

@@ -15,12 +15,11 @@
 {% block subtitle %}Clientes{% endblock subtitle %}
 {% block content %}
     <!-- CARD DE LISTA DE CLIENTES -->
-    <div class="row">
-        <div class="col-sm-12">
-           	<div class="card">
-           		<div class="card-body">
+    <div class="card">
+    	<div class="card-body">
+            <div class="row">
                     <div class="col-sm-3">
-                        <a class="btn btn-primary" id="novo_cliente" href="/cadastrar_cliente">
+                        <a class="btn btn-primary" id="novo_cliente" href="{% url 'cadastrar_cliente' %}">
                             <i class="fas fa-plus"></i> Novo Cliente
                         </a>
                     </div>
@@ -59,7 +58,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-           		</div>
            	</div>
         </div>
     </div>

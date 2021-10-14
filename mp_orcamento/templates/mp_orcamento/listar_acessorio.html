@@ -14,13 +14,12 @@
 <body>
 {% block subtitle %}Acessórios{% endblock subtitle %}
 {% block content %}
-    <!-- CARD DE LISTA DE ALUMÍNIOS -->
-    <div class="row">
-        <div class="col-sm-12">
-           	<div class="card">
-           		<div class="card-body">
+    <!-- CARD DE LISTA DE ACESSORIOS -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
                     <div class="col-sm-3">
-                        <a class="btn btn-primary" id="novo_acessorio" href="/cadastrar_acessorio">
+                        <a class="btn btn-primary" id="novo_acessorio" href="{% url 'cadastrar_acessorio' %}">
                             <i class="fas fa-plus"></i> Novo Acessório
                         </a>
                     </div>
@@ -61,7 +60,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-           		</div>
            	</div>
         </div>
     </div>

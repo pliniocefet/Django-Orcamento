@@ -105,7 +105,12 @@ class Orcamento(models.Model):
     * Nome do Cliente (ForeignKey Cliente)
     * Telefone do Cliente (ForeignKey Cliente)
     * Endereço do Cliente (ForeignKey Cliente)
+    
     * Vendedor responsável (ForeignKey Vendedor)
+        RELACIONAMENTO ORÇAMENTO X VENDEDOR
+        -- Orçamento só pode ter um único vendedor mas vendedor pode ter vários orçamentos
+        -- Relacionamento Many To One
+
     * Tipo de Materia prima
         -> Esquadria de aluminio
         -> Vidro temperado
@@ -133,7 +138,6 @@ class Orcamento(models.Model):
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     usuario = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
     materia_prima = models.CharField(max_length=10, choices=MATERIA_PRIMA,)
-    linha = models.ForeignKey(Linha, on_delete=models.CASCADE)
     pintura = models.CharField(max_length=50, choices=COR_DO_ALUMINIO)
 
     created_at = models.DateTimeField(auto_now_add=True)

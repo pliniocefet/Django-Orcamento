@@ -7,6 +7,7 @@ urlpatterns = [
     # ROTAS DE ORÇAMENTOS
     path('novo_orcamento/', novo_orcamento, name='novo_orcamento'),
     path('pesquisar_orcamento/', pesquisar_orcamento, name='pesquisar_orcamento'),
+    path('incluir_item_orcamento/<int:id>', incluir_item_orcamento, name='incluir_item_orcamento'),
     path('excluir_orcamento/<int:id>', excluir_orcamento, name='excluir_orcamento'),
 
     # ROTAS DE CLIENTES

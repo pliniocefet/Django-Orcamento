@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% block title %}Itens{% endblock title %}
+</head>
+
+<body>
+{% block subtitle %}Definir Opções{% endblock subtitle %}
+
+{% block content %}
+	<!-- CARD DE OPÇÕES DE ITENS DO ORÇAMENTO -->
+    <div class="card">
+        <div class="card-body">
+			<div class="row mb-3">
+				<center>
+					<h3>Produto: {{produto.descricao}}</h3>
+				</center>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Largura" aria-label="Largura">
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Altura" aria-label="Altura">
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Quantidade" aria-label="Quantidade">
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Localização" aria-label="Localização">
+				</div>
+				
+			<div class="row mt-3">
+				<div class="col">	
+					<form method="post">
+						{% csrf_token %}
+						<a type="button" class="btn btn-primary btn-sm" href="{% url 'novo_orcamento' %}">Confirmar</a>
+						<a type="button" class="btn btn-warning btn-sm" href={% url 'novo_orcamento' %}>Editar Detalhes</a>
+						<a type="cancel" class="btn btn-danger btn-sm" href={% url 'novo_orcamento' %}>Cancelar</a>
+					</form>
+				</div>
+			</div>
+
+			<div class="row mt-3">
+				<table class="table">
+				<h4>Perfis</h4>
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Descrição </th>
+                            <th scope="col">Medida </th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						<center>
+							{% if messages %}
+								<ul class="alert alert-success">
+								{% for message in messages %}
+									{{ message }}
+								{% endfor %}
+								</ul>
+							{% endif %}
+						</center>
+						{% for aluminio in lista_aluminios %}
+							<tr>
+								<td>{{ aluminio.codigo }}</td>
+								<td>{{ aluminio.descricao }}</td>
+								<td>{{ aluminio.peso }}</td>
+								<td>{{ aluminio.linha }}</td>
+								<td>
+									<a class="btn btn-primary btn-sm" href="">Editar</a>
+									<a class="btn btn-danger btn-sm" href="">Excluir</a>
+								</td>
+							</tr>
+						{% endfor %}
+                    </tbody>
+                </table>
+			</div>
+
+			<div class="row mt-3">
+				<table class="table">
+				<h4>Acessórios</h4>
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Descrição </th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						<center>
+							{% if messages %}
+								<ul class="alert alert-success">
+								{% for message in messages %}
+									{{ message }}
+								{% endfor %}
+								</ul>
+							{% endif %}
+						</center>
+						{% for aluminio in lista_aluminios %}
+							<tr>
+								<td>{{ aluminio.codigo }}</td>
+								<td>{{ aluminio.descricao }}</td>
+								<td>{{ aluminio.peso }}</td>
+								<td>{{ aluminio.linha }}</td>
+								<td>
+									<a class="btn btn-primary btn-sm" href="">Editar</a>
+									<a class="btn btn-danger btn-sm" href="">Excluir</a>
+								</td>
+							</tr>
+						{% endfor %}
+                    </tbody>
+                </table>
+			</div>
+
+			<div class="row mt-3">
+				<table class="table">
+				<h4>Vidros</h4>
+                    <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Largura</th>
+                            <th scope="col">Altura</th>
+                            <th scope="col">Quantidade</th>
+                            <th scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+						<center>
+							{% if messages %}
+								<ul class="alert alert-success">
+								{% for message in messages %}
+									{{ message }}
+								{% endfor %}
+								</ul>
+							{% endif %}
+						</center>
+						{% for aluminio in lista_aluminios %}
+							<tr>
+								<td>{{ aluminio.codigo }}</td>
+								<td>{{ aluminio.descricao }}</td>
+								<td>{{ aluminio.peso }}</td>
+								<td>{{ aluminio.linha }}</td>
+								<td>
+									<a class="btn btn-primary btn-sm" href="">Editar</a>
+									<a class="btn btn-danger btn-sm" href="">Excluir</a>
+								</td>
+							</tr>
+						{% endfor %}
+                    </tbody>
+                </table>
+			</div>
+
+           	</div>
+        </div>
+	</div>
+
+{% endblock content %}
+</body>
+
+</html>

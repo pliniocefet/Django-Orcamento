@@ -15,16 +15,15 @@
 {% block subtitle %}Vendedores{% endblock subtitle %}
 {% block content %}
     <!-- CARD DE LISTA DE VENDEDORES -->
-    <div class="row">
-        <div class="col-sm-12">
-           	<div class="card">
-           		<div class="card-body">
-                    <div class="col-sm-3">
-                        <a class="btn btn-primary" id="novo_vendedor" href="/cadastrar_vendedor">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                    <div class="col col-sm-3">
+                        <a class="btn btn-primary" id="novo_vendedor" href="{% url 'cadastrar_vendedor' %}">
                             <i class="fas fa-plus"></i> Novo Vendedor
                         </a>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col col-sm-3">
                         <input type="search" class="form-control mt-2" id="floatingInput" placeholder="Buscar Vendedor">
                     </div>
                     <table class="table">
@@ -57,7 +56,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-           		</div>
            	</div>
         </div>
     </div>

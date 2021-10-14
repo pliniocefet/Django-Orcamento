@@ -54,6 +54,7 @@ class FormProduto(ModelForm):
 # FORMULARIO DE ORÇAMENTOS
 class FormOrcamento(ModelForm):
     class Meta:
-        pass
+        model = Orcamento
+        fields = '__all__'
 
 
